@@ -1,7 +1,6 @@
-#include "gtest/gtest.h"
-
-#include "Method.h"
 #include "Requests.h"
+
+#include <gtest/gtest.h>
 
 const std::vector<std::string> kInvalidJsonTestParams = {
     "",
@@ -9,7 +8,8 @@ const std::vector<std::string> kInvalidJsonTestParams = {
     "{}",
     "{ABC}",
     R"({"ABC"})",
-    R"({"ABC" : })"
+    R"({"ABC" : })",
+    R"(someGarbageTextWithSymbols!@#$%^&*())"
 };
 
 const std::vector<std::string> kJsonMissingRequiredTestParams = {

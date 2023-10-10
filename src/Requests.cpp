@@ -5,11 +5,13 @@
 
 #include <nlohmann/json.hpp>
 
-#include <optional>
 #include <stdexcept>
 
 Request::Request(std::string url, std::string path, httplib::Headers headers)
-    : url_(std::move(url)), path_(std::move(path)), headers_(std::move(headers)) {}
+    : url_(std::move(url))
+    , path_(std::move(path))
+    , headers_(std::move(headers)) {
+}
 
 httplib::Headers Request::Headers() const {
     return headers_;

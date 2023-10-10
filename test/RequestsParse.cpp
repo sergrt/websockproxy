@@ -1,7 +1,6 @@
-#include "gtest/gtest.h"
-
-#include "Method.h"
 #include "Requests.h"
+
+#include <gtest/gtest.h>
 
 ////////////////////////////////////////////////
 // GetRequest
