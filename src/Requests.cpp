@@ -53,7 +53,7 @@ std::unique_ptr<Request> MakeRequest(const std::string& data) {
             httplib::MultipartFormData item;
             item.name = obj.at("name");
             item.content = obj.at("content");
-            item.filename = obj.at("filename");
+            item.filename = obj.value("filename", std::string());
             item.content_type = obj.at("content_type");
             form_data->push_back(std::move(item));
         }
