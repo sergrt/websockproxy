@@ -1,6 +1,27 @@
 # websockproxy
 Simple WebSocket HTTP server
-
+<!--
+# Table of contents
+   * [Description](#description)
+   * [Compilation](#compilation)
+   * [Configuration](#configuration)
+   * [JSON request format](#json-request-format)
+   * [Testing](#testing)
+   * [Request examples](#request-examples)
+     * [GET](#get)
+     * [HEAD](#head)
+     * [POST](#post)
+        * [With body data](#with-body-data)
+        * [With parameters](#with-parameters)
+        * [With files](#with-files)
+        * [With form data](#with-form-data)
+     * [PUT](#put)
+        * [With body data](#with-body-data-1)
+        * [With form data](#with-form-data-1)
+     * [DELETE](#delete)
+     * [OPTIONS](#options)
+     * [PATCH](#patch)
+-->
 ## Description
 This application starts WebSocket server and processes client requests in a "proxy" manner. Client sends json-formatted request, and this server performs HTTP request as described in json. As soon as request executed result is returned to the client.
 
@@ -49,6 +70,7 @@ Extra fields, if not needed (e. g.  `body` for `HEAD` request) are omitted.
 
 Note that some requests have required data. For example, PUT request cannot be performed without eiter `body` or `form_data` parameters supplied.
 
+## Testing
 Testing can be performed using [websocat](https://github.com/vi/websocat) client and [http://httpbin.org](http://httpbin.org) website:
 - https://httpbin.org/anything Returns most of the below.
 - https://httpbin.org/ip Returns Origin IP.
@@ -71,37 +93,61 @@ Testing can be performed using [websocat](https://github.com/vi/websocat) client
 - https://httpbin.org/stream/:n Streams n–100 lines.
 - https://httpbin.org/delay/:n Delays responding for n–10 seconds.
 
+## Request examples
 Some examples of requests:
+
+### `GET`
 ```
-// GET
 {"url" : "http://httpbin.org", "path" : "/get", "method" : "GET"}
+```
+```
 {"url" : "http://httpbin.org", "path" : "/get", "method" : "GET", "headers" : {"H1" : "V1", "H1" : "V2"}}
+```
 
-// HEAD
-{"url" : "http://httpbin.org", "path" : "/", "method" : "HEAD", "headers" : {"H1" : "V1", "H1" : "V2"}} 
+### `HEAD`
+```
+{"url" : "http://httpbin.org", "path" : "/", "method" : "HEAD", "headers" : {"H1" : "V1", "H1" : "V2"}}
+```
 
-// POST
-// With body data
+### `POST`
+#### With body data
+```
 {"url" : "http://httpbin.org", "path" : "/post", "method" : "POST", "body" : "[DEBUG] Post body", "content_type" : "text/plain"}
-// With parameters:
+```
+#### With parameters
+```
 {"url" : "http://httpbin.org", "path" : "/post", "method" : "POST", "body" : "type=debug&data=post_debug", "content_type" : "application/x-www-form-urlencoded"}
-// With files
+```
+#### With files
+```
 {"url" : "http://httpbin.org", "path" : "/post", "method" : "POST", "form_data" : [{"name" : "name1", "content" : "content1", "filename" : "fname1", "content_type" : "text/plain"}, {"name" : "name2", "content" : "content2", "filename" : "fname2", "content_type" : "image/jpeg"}]}
-// Form
+```
+#### With form data
+```
 {"url" : "http://httpbin.org", "path" : "/post", "method" : "POST", "form_data" : [{"name" : "name1", "content" : "content1", "filename" : "", "content_type" : "text/plain"}, {"name" : "name2", "content" : "content2", "filename" : "", "content_type" : "image/jpeg"}]}
+```
 
-// PUT
-// With body data
+### `PUT`
+#### With body data
+```
 {"url" : "http://httpbin.org", "path" : "/put", "method" : "PUT", "body" : "[DEBUG] Put body", "content_type" : "text/plain"}
-// Form
+```
+#### With form data
+```
 {"url" : "http://httpbin.org", "path" : "/put", "method" : "PUT", "form_data" : [{"name" : "name1", "content" : "content1", "filename" : "fname1", "content_type" : "text/plain"}, {"name" : "name2", "content" : "content2", "filename" : "", "content_type" : "image/jpeg"}]}
+```
 
-// DELETE
+### `DELETE`
+```
 {"url" : "http://httpbin.org", "path" : "/delete", "method" : "DELETE" , "body" : "[DEBUG] Delete body", "content_type" : "text/plain"}
+```
 
-// OPTIONS
+### `OPTIONS`
+```
 {"url" : "http://google.com", "path" : "/anything", "method" : "OPTIONS", "headers" : {"H1" : "V1", "H1" : "V2"}}
+```
     
-// PATCH
+### `PATCH`
+```
 {"url" : "http://httpbin.org", "path" : "/patch", "method" : "PATCH" , "body" : "[DEBUG] Delete body", "content_type" : "text/plain"}
 ```
