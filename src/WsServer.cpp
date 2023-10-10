@@ -25,8 +25,8 @@ WsServer::WsServer(const std::string& address, uint16_t port) {
     CROW_WEBSOCKET_ROUTE(app_, "/")
         .max_payload(kMaxPayloadSizeBytes)
         .onaccept(std::bind(&WsServer::AcceptHandler, this, _1, _2))
-        .onopen(std::bind(&WsServer::OpenHandler, this, std::placeholders::_1))
-        .onclose(std::bind(&WsServer::CloseHandler, this, std::placeholders::_1))
+        .onopen(std::bind(&WsServer::OpenHandler, this, _1))
+        .onclose(std::bind(&WsServer::CloseHandler, this, _1))
         .onmessage(std::bind(&WsServer::MessageHandler, this, _1, _2, _3))
         .onerror(std::bind(&WsServer::ErrorHandler, this, _1, _2));
 
@@ -80,12 +80,7 @@ void WsServer::CloseHandler(crow::websocket::connection& /*conn*/) {
 
 void WsServer::MessageHandler(crow::websocket::connection& conn, const std::string& data, bool is_binary) {
     CROW_LOG_INFO << "MessageHandler(): message received: " << (is_binary ? "<blob>" : data);
-    /*
-    if (is_binary)
-        conn.send_binary(data);
-    else
-        conn.send_text(data);
-    */
+
     try {
         const auto request = MakeRequest(data);
         auto http_client = HttpClient(request->Url());
