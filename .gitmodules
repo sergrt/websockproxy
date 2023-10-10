@@ -1,3 +1,15 @@
 [submodule "3rdparty/gtest"]
 	path = 3rdparty/gtest
 	url = https://github.com/google/googletest.git
+[submodule "3rdparty/Crow"]
+	path = 3rdparty/Crow
+	url = https://github.com/CrowCpp/Crow.git
+[submodule "3rdparty/cpp-httplib"]
+	path = 3rdparty/cpp-httplib
+	url = https://github.com/yhirose/cpp-httplib.git
+[submodule "3rdparty/json"]
+	path = 3rdparty/json
+	url = https://github.com/nlohmann/json.git
+[submodule "3rdparty/asio"]
+	path = 3rdparty/asio
+	url = https://github.com/chriskohlhoff/asio.git
