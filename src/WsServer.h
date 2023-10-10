@@ -6,7 +6,7 @@
 #include <mutex>
 #include <string>
 
-class WsServer {
+class WsServer final {
 public:
     WsServer(const std::string& address, uint16_t port);
     WsServer(const WsServer&) = delete;

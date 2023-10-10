@@ -11,56 +11,53 @@ std::pair<int, std::string> FormatResult(const httplib::Result& result) {
 
 }  // namespace
 
+HttpClient::HttpClient(const std::string& url)
+    : client_(url) {
+}
+
 std::pair<int, std::string> HttpClient::visit(const GetRequest& request) {
-    httplib::Client client(request.Url());
-    const auto res = client.Get(request.Path(), request.Headers());
+    const auto res = client_.Get(request.Path(), request.Headers());
     return FormatResult(res);
 }
 
 std::pair<int, std::string> HttpClient::visit(const HeadRequest& request) {
-    httplib::Client client(request.Url());
-    const auto res = client.Head(request.Path(), request.Headers());
+    const auto res = client_.Head(request.Path(), request.Headers());
     return FormatResult(res);
 }
 
 std::pair<int, std::string> HttpClient::visit(const PostRequest& request) {
-    httplib::Client client(request.Url());
     httplib::Result res;
     if (request.HasFormData())
-        res = client.Post(request.Path(), request.Headers(), request.FormData());
+        res = client_.Post(request.Path(), request.Headers(), request.FormData());
     else if (request.HasPayload())
-        res = client.Post(request.Path(), request.Headers(), request.Body(), request.ContentType());
+        res = client_.Post(request.Path(), request.Headers(), request.Body(), request.ContentType());
     else
-        res = client.Post(request.Path(), request.Headers());
+        res = client_.Post(request.Path(), request.Headers());
     return FormatResult(res);
 }
 
 std::pair<int, std::string> HttpClient::visit(const PutRequest& request) {
-    httplib::Client client(request.Url());
     httplib::Result res;
     if (request.HasFormData())
-        res = client.Put(request.Path(), request.Headers(), request.FormData());
+        res = client_.Put(request.Path(), request.Headers(), request.FormData());
     else if (request.HasPayload())
-        res = client.Put(request.Path(), request.Headers(), request.Body(), request.ContentType());
+        res = client_.Put(request.Path(), request.Headers(), request.Body(), request.ContentType());
     else
         throw std::runtime_error("visit(const PutRequest&): ill-formed PUT object");
     return FormatResult(res);
 }
 
 std::pair<int, std::string> HttpClient::visit(const DeleteRequest& request) {
-    httplib::Client client(request.Url());
-    const auto res = client.Delete(request.Path(), request.Headers(), request.Body(), request.ContentType());
+    const auto res = client_.Delete(request.Path(), request.Headers(), request.Body(), request.ContentType());
     return FormatResult(res);
 }
 
 std::pair<int, std::string> HttpClient::visit(const OptionsRequest& request) {
-    httplib::Client client(request.Url());
-    const auto res = client.Options(request.Path(), request.Headers());
+    const auto res = client_.Options(request.Path(), request.Headers());
     return FormatResult(res);
 }
 
 std::pair<int, std::string> HttpClient::visit(const PatchRequest& request) {
-    httplib::Client client(request.Url());
-    const auto res = client.Patch(request.Path(), request.Headers(), request.Body(), request.ContentType());
+    const auto res = client_.Patch(request.Path(), request.Headers(), request.Body(), request.ContentType());
     return FormatResult(res);
 }

@@ -88,7 +88,7 @@ void WsServer::MessageHandler(crow::websocket::connection& conn, const std::stri
     */
     try {
         const auto request = MakeRequest(data);
-        auto http_client = HttpClient();
+        auto http_client = HttpClient(request->Url());
         const auto [status, body] = request->Accept(http_client);
         const auto response = MakeResponse(status, body);
         conn.send_text(response);
