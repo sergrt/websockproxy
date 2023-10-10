@@ -30,7 +30,7 @@ std::unique_ptr<Request> MakeRequest(const std::string& data) {
 
     const auto url = json["url"].get<std::string>();
     const auto path = json.value("path", "/");
-    const auto method = MethodFromString(json.at("request"));
+    const auto method = MethodFromString(json.at("method"));
 
     httplib::Headers headers;
     if (json.contains("headers")) {

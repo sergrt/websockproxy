@@ -19,15 +19,15 @@ struct GetRequestTestParam {
 
 const std::vector<GetRequestTestParam> kGetRequestTestParams = {
     {
-        R"({ "url" : "http://httpbin.org", "path" : "/get", "request" : "GET", "headers" : { "A": "A1", "B" : "B1" } })",
+        R"({ "url" : "http://httpbin.org", "path" : "/get", "method" : "GET", "headers" : { "A": "A1", "B" : "B1" } })",
         { "http://httpbin.org", "/get", {{"A","A1"}, {"B","B1"}} }
     },
     {
-        R"({ "url" : "http://httpbin.org", "path" : "/get", "request" : "GET"})",
+        R"({ "url" : "http://httpbin.org", "path" : "/get", "method" : "GET"})",
         { "http://httpbin.org", "/get" }
     },
     {
-        R"({ "url" : "http://httpbin.org", "request" : "GET"})",
+        R"({ "url" : "http://httpbin.org", "method" : "GET"})",
         { "http://httpbin.org", "/" }
     }
 };
@@ -54,15 +54,15 @@ using HeadRequestTestParam = GetRequestTestParam;
 
 const std::vector<HeadRequestTestParam> kHeadRequestTestParams = {
     {
-        R"({"url" : "http://httpbin.org", "path" : "/get", "request" : "HEAD", "headers" : { "A": "A1", "B" : "B1" } })",
+        R"({"url" : "http://httpbin.org", "path" : "/get", "method" : "HEAD", "headers" : { "A": "A1", "B" : "B1" } })",
         { "http://httpbin.org", "/get", {{"A","A1"}, {"B","B1"}} }
     },
     {
-        R"({"url" : "http://httpbin.org", "path" : "/get", "request" : "HEAD"})",
+        R"({"url" : "http://httpbin.org", "path" : "/get", "method" : "HEAD"})",
         { "http://httpbin.org", "/get" }
     },
     {
-        R"({"url" : "http://httpbin.org", "request" : "HEAD"})",
+        R"({"url" : "http://httpbin.org", "method" : "HEAD"})",
         { "http://httpbin.org", "/" }
     }
 };
@@ -100,7 +100,7 @@ struct PostRequestTestParam {
 
 const std::vector<PostRequestTestParam> kPostRequestTestParams = {
     {
-        R"({"url" : "http://httpbin.org", "path" : "/post", "request" : "POST",
+        R"({"url" : "http://httpbin.org", "path" : "/post", "method" : "POST",
             "headers" : { "A": "A1", "B" : "B1" },
             "form_data" : [
                 {"name" : "ABC", "content" : "content1", "filename" : "fname1", "content_type" : "text/plain"},
@@ -118,7 +118,7 @@ const std::vector<PostRequestTestParam> kPostRequestTestParams = {
         }
     },
     {
-        R"({"url" : "http://httpbin.org", "path" : "/post", "request" : "POST",
+        R"({"url" : "http://httpbin.org", "path" : "/post", "method" : "POST",
             "headers" : { "A": "A1", "B" : "B1" },
             "body" : "ABC", "content_type" : "text/plain"
         })",
@@ -130,7 +130,7 @@ const std::vector<PostRequestTestParam> kPostRequestTestParams = {
         }
     },
     {
-        R"({"url" : "http://httpbin.org", "path" : "/post", "request" : "POST",
+        R"({"url" : "http://httpbin.org", "path" : "/post", "method" : "POST",
             "headers" : { "A": "A1", "B" : "B1" }
         })",
         {
@@ -173,7 +173,7 @@ using PutRequestTestParam = PostRequestTestParam;
 
 const std::vector<PutRequestTestParam> kPutRequestTestParams = {
     {
-        R"({"url" : "http://httpbin.org", "path" : "/put", "request" : "PUT",
+        R"({"url" : "http://httpbin.org", "path" : "/put", "method" : "PUT",
             "headers" : { "A": "A1", "B" : "B1" },
             "form_data" : [
                 {"name" : "ABC", "content" : "content1", "filename" : "fname1", "content_type" : "text/plain"},
@@ -191,7 +191,7 @@ const std::vector<PutRequestTestParam> kPutRequestTestParams = {
         }
     },
     {
-        R"({"url" : "http://httpbin.org", "path" : "/put", "request" : "PUT",
+        R"({"url" : "http://httpbin.org", "path" : "/put", "method" : "PUT",
             "headers" : { "A": "A1", "B" : "B1" },
             "body" : "ABC", "content_type" : "text/plain"
         })",
@@ -244,7 +244,7 @@ struct DeleteRequestTestParam {
 
 const std::vector<DeleteRequestTestParam> kDeleteRequestTestParams = {
     {
-        R"({"url" : "http://httpbin.org", "path" : "/delete", "request" : "DELETE",
+        R"({"url" : "http://httpbin.org", "path" : "/delete", "method" : "DELETE",
             "headers" : { "A": "A1", "B" : "B1" },
             "body" : "ABC", "content_type" : "text/plain"
         })",
@@ -255,7 +255,7 @@ const std::vector<DeleteRequestTestParam> kDeleteRequestTestParams = {
         }
     },
     {
-        R"({"url" : "http://httpbin.org", "path" : "/delete", "request" : "DELETE",
+        R"({"url" : "http://httpbin.org", "path" : "/delete", "method" : "DELETE",
             "headers" : { "A": "A1", "B" : "B1" }
         })",
         {
@@ -264,7 +264,7 @@ const std::vector<DeleteRequestTestParam> kDeleteRequestTestParams = {
         }
     },
     {
-        R"({"url" : "http://httpbin.org", "path" : "/delete", "request" : "DELETE" })",
+        R"({"url" : "http://httpbin.org", "path" : "/delete", "method" : "DELETE" })",
         {
             "http://httpbin.org", "/delete"
         }
@@ -295,15 +295,15 @@ using OptionsRequestTestParam = GetRequestTestParam;
 
 const std::vector<OptionsRequestTestParam> kOptionsRequestTestParams = {
     {
-        R"({"url" : "http://httpbin.org", "path" : "/options", "request" : "OPTIONS", "headers" : { "A": "A1", "B" : "B1" } })",
+        R"({"url" : "http://httpbin.org", "path" : "/options", "method" : "OPTIONS", "headers" : { "A": "A1", "B" : "B1" } })",
         { "http://httpbin.org", "/options", {{"A","A1"}, {"B","B1"}} }
     },
     {
-        R"({"url" : "http://httpbin.org", "path" : "/options", "request" : "OPTIONS"})",
+        R"({"url" : "http://httpbin.org", "path" : "/options", "method" : "OPTIONS"})",
         { "http://httpbin.org", "/options" }
     },
     {
-        R"({"url" : "http://httpbin.org", "request" : "OPTIONS"})",
+        R"({"url" : "http://httpbin.org", "method" : "OPTIONS"})",
         { "http://httpbin.org", "/" }
     }
 };
@@ -330,7 +330,7 @@ using PatchRequestTestParam = DeleteRequestTestParam;
 
 const std::vector<PatchRequestTestParam> kPatchRequestTestParams = {
     {
-        R"({"url" : "http://httpbin.org", "path" : "/patch", "request" : "PATCH",
+        R"({"url" : "http://httpbin.org", "path" : "/patch", "method" : "PATCH",
             "headers" : { "A": "A1", "B" : "B1" },
             "body" : "ABC", "content_type" : "text/plain"
         })",
@@ -341,7 +341,7 @@ const std::vector<PatchRequestTestParam> kPatchRequestTestParams = {
         }
     },
     {
-        R"({"url" : "http://httpbin.org", "path" : "/patch", "request" : "PATCH",
+        R"({"url" : "http://httpbin.org", "path" : "/patch", "method" : "PATCH",
             "headers" : { "A": "A1", "B" : "B1" }
         })",
         {
@@ -350,7 +350,7 @@ const std::vector<PatchRequestTestParam> kPatchRequestTestParams = {
         }
     },
     {
-        R"({"url" : "http://httpbin.org", "path" : "/patch", "request" : "PATCH" })",
+        R"({"url" : "http://httpbin.org", "path" : "/patch", "method" : "PATCH" })",
         {
             "http://httpbin.org", "/patch"
         }
