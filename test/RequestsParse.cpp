@@ -18,15 +18,15 @@ struct GetRequestTestParam {
 
 const std::vector<GetRequestTestParam> kGetRequestTestParams = {
     {
-        R"({ "url" : "http://httpbin.org", "path" : "/get", "method" : "GET", "headers" : { "A": "A1", "B" : "B1" } })",
+        R"({"url": "http://httpbin.org", "path": "/get", "method": "GET", "headers": { "A": "A1", "B": "B1" }})",
         { "http://httpbin.org", "/get", {{"A","A1"}, {"B","B1"}} }
     },
     {
-        R"({ "url" : "http://httpbin.org", "path" : "/get", "method" : "GET"})",
+        R"({"url": "http://httpbin.org", "path": "/get", "method": "GET"})",
         { "http://httpbin.org", "/get" }
     },
     {
-        R"({ "url" : "http://httpbin.org", "method" : "GET"})",
+        R"({"url": "http://httpbin.org", "method": "GET"})",
         { "http://httpbin.org", "/" }
     }
 };
@@ -53,15 +53,15 @@ using HeadRequestTestParam = GetRequestTestParam;
 
 const std::vector<HeadRequestTestParam> kHeadRequestTestParams = {
     {
-        R"({"url" : "http://httpbin.org", "path" : "/get", "method" : "HEAD", "headers" : { "A": "A1", "B" : "B1" } })",
+        R"({"url": "http://httpbin.org", "path": "/get", "method": "HEAD", "headers": { "A": "A1", "B": "B1" }})",
         { "http://httpbin.org", "/get", {{"A","A1"}, {"B","B1"}} }
     },
     {
-        R"({"url" : "http://httpbin.org", "path" : "/get", "method" : "HEAD"})",
+        R"({"url": "http://httpbin.org", "path": "/get", "method": "HEAD"})",
         { "http://httpbin.org", "/get" }
     },
     {
-        R"({"url" : "http://httpbin.org", "method" : "HEAD"})",
+        R"({"url": "http://httpbin.org", "method": "HEAD"})",
         { "http://httpbin.org", "/" }
     }
 };
@@ -99,11 +99,11 @@ struct PostRequestTestParam {
 
 const std::vector<PostRequestTestParam> kPostRequestTestParams = {
     {
-        R"({"url" : "http://httpbin.org", "path" : "/post", "method" : "POST",
-            "headers" : { "A": "A1", "B" : "B1" },
-            "form_data" : [
-                {"name" : "ABC", "content" : "content1", "filename" : "fname1", "content_type" : "text/plain"},
-                {"name" : "DEF", "content" : "content2", "filename" : "", "content_type" : "image/jpeg"}]
+        R"({"url": "http://httpbin.org", "path": "/post", "method": "POST",
+            "headers": { "A": "A1", "B": "B1" },
+            "form_data": [
+                {"name": "ABC", "content": "content1", "filename": "fname1", "content_type": "text/plain"},
+                {"name": "DEF", "content": "content2", "filename": "", "content_type": "image/jpeg"}]
         })",
         {
             "http://httpbin.org", "/post",
@@ -117,9 +117,9 @@ const std::vector<PostRequestTestParam> kPostRequestTestParams = {
         }
     },
     {
-        R"({"url" : "http://httpbin.org", "path" : "/post", "method" : "POST",
-            "headers" : { "A": "A1", "B" : "B1" },
-            "body" : "ABC", "content_type" : "text/plain"
+        R"({"url": "http://httpbin.org", "path": "/post", "method": "POST",
+            "headers": { "A": "A1", "B": "B1" },
+            "body": "ABC", "content_type": "text/plain"
         })",
         {
             "http://httpbin.org", "/post",
@@ -129,8 +129,8 @@ const std::vector<PostRequestTestParam> kPostRequestTestParams = {
         }
     },
     {
-        R"({"url" : "http://httpbin.org", "path" : "/post", "method" : "POST",
-            "headers" : { "A": "A1", "B" : "B1" }
+        R"({"url": "http://httpbin.org", "path": "/post", "method": "POST",
+            "headers": { "A": "A1", "B": "B1" }
         })",
         {
             "http://httpbin.org", "/post",
@@ -148,7 +148,7 @@ TEST_P(PostRequestTestFixture, PostRequest) {
     EXPECT_EQ(request->Url(), expected.url);
     EXPECT_EQ(request->Path(), expected.path);
     EXPECT_EQ(request->Headers(), expected.headers);
-    auto post_request = dynamic_cast<PostRequest*>(request.get());
+    const auto post_request = dynamic_cast<PostRequest*>(request.get());
     ASSERT_NE(post_request, nullptr);
     EXPECT_EQ(post_request->Body(), expected.body);
     EXPECT_EQ(post_request->ContentType(), expected.content_type);
@@ -172,11 +172,11 @@ using PutRequestTestParam = PostRequestTestParam;
 
 const std::vector<PutRequestTestParam> kPutRequestTestParams = {
     {
-        R"({"url" : "http://httpbin.org", "path" : "/put", "method" : "PUT",
-            "headers" : { "A": "A1", "B" : "B1" },
-            "form_data" : [
-                {"name" : "ABC", "content" : "content1", "filename" : "fname1", "content_type" : "text/plain"},
-                {"name" : "DEF", "content" : "content2", "filename" : "", "content_type" : "image/jpeg"}]
+        R"({"url": "http://httpbin.org", "path": "/put", "method": "PUT",
+            "headers": { "A": "A1", "B": "B1" },
+            "form_data": [
+                {"name": "ABC", "content": "content1", "filename": "fname1", "content_type": "text/plain"},
+                {"name": "DEF", "content": "content2", "filename": "", "content_type": "image/jpeg"}]
         })",
         {
             "http://httpbin.org", "/put",
@@ -190,9 +190,9 @@ const std::vector<PutRequestTestParam> kPutRequestTestParams = {
         }
     },
     {
-        R"({"url" : "http://httpbin.org", "path" : "/put", "method" : "PUT",
-            "headers" : { "A": "A1", "B" : "B1" },
-            "body" : "ABC", "content_type" : "text/plain"
+        R"({"url": "http://httpbin.org", "path": "/put", "method": "PUT",
+            "headers": { "A": "A1", "B": "B1" },
+            "body": "ABC", "content_type": "text/plain"
         })",
         {
             "http://httpbin.org", "/put",
@@ -243,9 +243,9 @@ struct DeleteRequestTestParam {
 
 const std::vector<DeleteRequestTestParam> kDeleteRequestTestParams = {
     {
-        R"({"url" : "http://httpbin.org", "path" : "/delete", "method" : "DELETE",
-            "headers" : { "A": "A1", "B" : "B1" },
-            "body" : "ABC", "content_type" : "text/plain"
+        R"({"url": "http://httpbin.org", "path": "/delete", "method": "DELETE",
+            "headers": { "A": "A1", "B": "B1" },
+            "body": "ABC", "content_type": "text/plain"
         })",
         {
             "http://httpbin.org", "/delete",
@@ -254,8 +254,8 @@ const std::vector<DeleteRequestTestParam> kDeleteRequestTestParams = {
         }
     },
     {
-        R"({"url" : "http://httpbin.org", "path" : "/delete", "method" : "DELETE",
-            "headers" : { "A": "A1", "B" : "B1" }
+        R"({"url": "http://httpbin.org", "path": "/delete", "method": "DELETE",
+            "headers": { "A": "A1", "B": "B1" }
         })",
         {
             "http://httpbin.org", "/delete",
@@ -263,7 +263,7 @@ const std::vector<DeleteRequestTestParam> kDeleteRequestTestParams = {
         }
     },
     {
-        R"({"url" : "http://httpbin.org", "path" : "/delete", "method" : "DELETE" })",
+        R"({"url": "http://httpbin.org", "path": "/delete", "method": "DELETE" })",
         {
             "http://httpbin.org", "/delete"
         }
@@ -279,7 +279,7 @@ TEST_P(DeleteRequestTestFixture, DeleteRequest) {
     EXPECT_EQ(request->Url(), expected.url);
     EXPECT_EQ(request->Path(), expected.path);
     EXPECT_EQ(request->Headers(), expected.headers);
-    auto delete_request = dynamic_cast<DeleteRequest*>(request.get());
+    const auto delete_request = dynamic_cast<DeleteRequest*>(request.get());
     ASSERT_NE(delete_request, nullptr);
     EXPECT_EQ(delete_request->Body(), expected.body);
     EXPECT_EQ(delete_request->ContentType(), expected.content_type);
@@ -294,15 +294,15 @@ using OptionsRequestTestParam = GetRequestTestParam;
 
 const std::vector<OptionsRequestTestParam> kOptionsRequestTestParams = {
     {
-        R"({"url" : "http://httpbin.org", "path" : "/options", "method" : "OPTIONS", "headers" : { "A": "A1", "B" : "B1" } })",
+        R"({"url": "http://httpbin.org", "path": "/options", "method": "OPTIONS", "headers": { "A": "A1", "B": "B1" }})",
         { "http://httpbin.org", "/options", {{"A","A1"}, {"B","B1"}} }
     },
     {
-        R"({"url" : "http://httpbin.org", "path" : "/options", "method" : "OPTIONS"})",
+        R"({"url": "http://httpbin.org", "path": "/options", "method": "OPTIONS"})",
         { "http://httpbin.org", "/options" }
     },
     {
-        R"({"url" : "http://httpbin.org", "method" : "OPTIONS"})",
+        R"({"url": "http://httpbin.org", "method": "OPTIONS"})",
         { "http://httpbin.org", "/" }
     }
 };
@@ -329,9 +329,9 @@ using PatchRequestTestParam = DeleteRequestTestParam;
 
 const std::vector<PatchRequestTestParam> kPatchRequestTestParams = {
     {
-        R"({"url" : "http://httpbin.org", "path" : "/patch", "method" : "PATCH",
-            "headers" : { "A": "A1", "B" : "B1" },
-            "body" : "ABC", "content_type" : "text/plain"
+        R"({"url": "http://httpbin.org", "path": "/patch", "method": "PATCH",
+            "headers": { "A": "A1", "B": "B1" },
+            "body": "ABC", "content_type": "text/plain"
         })",
         {
             "http://httpbin.org", "/patch",
@@ -340,8 +340,8 @@ const std::vector<PatchRequestTestParam> kPatchRequestTestParams = {
         }
     },
     {
-        R"({"url" : "http://httpbin.org", "path" : "/patch", "method" : "PATCH",
-            "headers" : { "A": "A1", "B" : "B1" }
+        R"({"url": "http://httpbin.org", "path": "/patch", "method": "PATCH",
+            "headers": { "A": "A1", "B": "B1" }
         })",
         {
             "http://httpbin.org", "/patch",
@@ -349,7 +349,7 @@ const std::vector<PatchRequestTestParam> kPatchRequestTestParams = {
         }
     },
     {
-        R"({"url" : "http://httpbin.org", "path" : "/patch", "method" : "PATCH" })",
+        R"({"url": "http://httpbin.org", "path": "/patch", "method": "PATCH" })",
         {
             "http://httpbin.org", "/patch"
         }
@@ -365,7 +365,7 @@ TEST_P(PatchRequestTestFixture, PatchRequest) {
     EXPECT_EQ(request->Url(), expected.url);
     EXPECT_EQ(request->Path(), expected.path);
     EXPECT_EQ(request->Headers(), expected.headers);
-    auto patch_request = dynamic_cast<PatchRequest*>(request.get());
+    const auto patch_request = dynamic_cast<PatchRequest*>(request.get());
     ASSERT_NE(patch_request, nullptr);
     EXPECT_EQ(patch_request->Body(), expected.body);
     EXPECT_EQ(patch_request->ContentType(), expected.content_type);
