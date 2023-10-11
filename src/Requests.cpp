@@ -96,7 +96,7 @@ GetRequest::GetRequest(std::string url, std::string path, httplib::Headers heade
 }
 
 std::pair<int, std::string> GetRequest::Accept(HttpClient& http_client) {
-    return http_client.visit(*this);
+    return http_client.Visit(*this);
 }
 
 
@@ -105,7 +105,7 @@ HeadRequest::HeadRequest(std::string url, std::string path, httplib::Headers hea
 }
 
 std::pair<int, std::string> HeadRequest::Accept(HttpClient& http_client) {
-    return http_client.visit(*this);
+    return http_client.Visit(*this);
 }
 
 
@@ -124,7 +124,7 @@ PostRequest::PostRequest(std::string url, std::string path, httplib::Headers hea
 }
 
 std::pair<int, std::string> PostRequest::Accept(HttpClient& http_client) {
-    return http_client.visit(*this);
+    return http_client.Visit(*this);
 }
 
 
@@ -139,7 +139,7 @@ PutRequest::PutRequest(std::string url, std::string path, httplib::Headers heade
 }
 
 std::pair<int, std::string> PutRequest::Accept(HttpClient& http_client) {
-    return http_client.visit(*this);
+    return http_client.Visit(*this);
 }
 
 
@@ -149,7 +149,7 @@ DeleteRequest::DeleteRequest(std::string url, std::string path, httplib::Headers
 }
 
 std::pair<int, std::string> DeleteRequest::Accept(HttpClient& http_client) {
-    return http_client.visit(*this);
+    return http_client.Visit(*this);
 }
 
 
@@ -158,7 +158,7 @@ OptionsRequest::OptionsRequest(std::string url, std::string path, httplib::Heade
 }
 
 std::pair<int, std::string> OptionsRequest::Accept(HttpClient& http_client) {
-    return http_client.visit(*this);
+    return http_client.Visit(*this);
 }
 
 
@@ -168,5 +168,5 @@ PatchRequest::PatchRequest(std::string url, std::string path, httplib::Headers h
 }
 
 std::pair<int, std::string> PatchRequest::Accept(HttpClient& http_client) {
-    return http_client.visit(*this);
+    return http_client.Visit(*this);
 }

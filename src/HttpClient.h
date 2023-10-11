@@ -13,13 +13,15 @@ public:
     HttpClient& operator=(const HttpClient&) = delete;
     HttpClient& operator=(HttpClient&&) = delete;
 
-    std::pair<int, std::string> visit(const GetRequest& request);
-    std::pair<int, std::string> visit(const HeadRequest& request);
-    std::pair<int, std::string> visit(const PostRequest& request);
-    std::pair<int, std::string> visit(const PutRequest& request);
-    std::pair<int, std::string> visit(const DeleteRequest& request);
-    std::pair<int, std::string> visit(const OptionsRequest& request);
-    std::pair<int, std::string> visit(const PatchRequest& request);
+    ~HttpClient() = default;
+
+    std::pair<int, std::string> Visit(const GetRequest& request);
+    std::pair<int, std::string> Visit(const HeadRequest& request);
+    std::pair<int, std::string> Visit(const PostRequest& request);
+    std::pair<int, std::string> Visit(const PutRequest& request);
+    std::pair<int, std::string> Visit(const DeleteRequest& request);
+    std::pair<int, std::string> Visit(const OptionsRequest& request);
+    std::pair<int, std::string> Visit(const PatchRequest& request);
 
 private:
     httplib::Client client_;

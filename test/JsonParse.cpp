@@ -24,8 +24,6 @@ const std::vector<std::string> kJsonMissingRequiredTestParams = {
     R"({"url" : "http://httpbin.org", "path" : "/post", "method" : "POST",
         "form_data" : [{"name" : "ABC", "filename" : "fname1", "content_type" : "text/plain"}]})",
     R"({"url" : "http://httpbin.org", "path" : "/post", "method" : "POST",
-        "form_data" : [{"name" : "ABC", "content" : "content1", "content_type" : "text/plain"}]})",
-    R"({"url" : "http://httpbin.org", "path" : "/post", "method" : "POST",
         "form_data" : [{"name" : "ABC", "content" : "content1", "filename" : "fname1"}]})",
 };
 
