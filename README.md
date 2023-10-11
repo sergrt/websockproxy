@@ -97,57 +97,166 @@ Testing can be performed using [websocat](https://github.com/vi/websocat) client
 Some examples of requests:
 
 ### `GET`
+```json
+{
+    "url": "http://httpbin.org",
+    "path": "/get",
+    "method": "GET"
+}
 ```
-{"url" : "http://httpbin.org", "path" : "/get", "method" : "GET"}
-```
-```
-{"url" : "http://httpbin.org", "path" : "/get", "method" : "GET", "headers" : {"H1" : "V1", "H1" : "V2"}}
+```json
+{
+    "url": "http://httpbin.org",
+    "path": "/get",
+    "method": "GET",
+    "headers": {
+        "H1": "V1",
+        "H2": "V2"
+    }
+}
 ```
 
 ### `HEAD`
-```
-{"url" : "http://httpbin.org", "path" : "/", "method" : "HEAD", "headers" : {"H1" : "V1", "H1" : "V2"}}
+```json
+{
+    "url": "http://httpbin.org",
+    "path": "/",
+    "method": "HEAD",
+    "headers": {
+        "H1": "V1",
+        "H2": "V2"
+    }
+}
 ```
 
 ### `POST`
 #### With body data
-```
-{"url" : "http://httpbin.org", "path" : "/post", "method" : "POST", "body" : "[DEBUG] Post body", "content_type" : "text/plain"}
+```json
+{
+    "url": "http://httpbin.org",
+    "path": "/post",
+    "method": "POST",
+    "body": "[DEBUG] Post body",
+    "content_type": "text/plain"
+}
 ```
 #### With parameters
-```
-{"url" : "http://httpbin.org", "path" : "/post", "method" : "POST", "body" : "type=debug&data=post_debug", "content_type" : "application/x-www-form-urlencoded"}
+```json
+{
+    "url": "http://httpbin.org",
+    "path": "/post",
+    "method": "POST",
+    "body": "type=debug&data=post_debug",
+    "content_type": "application/x-www-form-urlencoded"
+}
 ```
 #### With files
-```
-{"url" : "http://httpbin.org", "path" : "/post", "method" : "POST", "form_data" : [{"name" : "name1", "content" : "content1", "filename" : "fname1", "content_type" : "text/plain"}, {"name" : "name2", "content" : "content2", "filename" : "fname2", "content_type" : "image/jpeg"}]}
+```json
+{
+    "url": "http://httpbin.org",
+    "path": "/post",
+    "method": "POST",
+    "form_data": [
+        {
+            "name": "name1",
+            "content": "content1",
+            "filename": "fname1",
+            "content_type": "text/plain"
+        },
+        {
+            "name": "name2",
+            "content": "content2",
+            "filename": "fname2",
+            "content_type": "image/jpeg"
+        }
+    ]
+}
 ```
 #### With form data
-```
-{"url" : "http://httpbin.org", "path" : "/post", "method" : "POST", "form_data" : [{"name" : "name1", "content" : "content1", "filename" : "", "content_type" : "text/plain"}, {"name" : "name2", "content" : "content2", "filename" : "", "content_type" : "image/jpeg"}]}
+```json
+{
+    "url": "http://httpbin.org",
+    "path": "/post",
+    "method": "POST",
+    "form_data": [
+        {
+            "name": "name1",
+            "content": "content1",
+            "content_type": "text/plain"
+        },
+        {
+            "name": "name2",
+            "content": "content2",
+            "content_type": "image/jpeg"
+        }
+    ]
+}
 ```
 
 ### `PUT`
 #### With body data
-```
-{"url" : "http://httpbin.org", "path" : "/put", "method" : "PUT", "body" : "[DEBUG] Put body", "content_type" : "text/plain"}
+```json
+{
+    "url": "http://httpbin.org",
+    "path": "/put",
+    "method": "PUT",
+    "body": "[DEBUG] Put body",
+    "content_type": "text/plain"
+}
 ```
 #### With form data
-```
-{"url" : "http://httpbin.org", "path" : "/put", "method" : "PUT", "form_data" : [{"name" : "name1", "content" : "content1", "filename" : "fname1", "content_type" : "text/plain"}, {"name" : "name2", "content" : "content2", "filename" : "", "content_type" : "image/jpeg"}]}
+```json
+{
+    "url": "http://httpbin.org",
+    "path": "/put",
+    "method": "PUT",
+    "form_data": [
+        {
+            "name": "name1",
+            "content": "content1",
+            "filename": "fname1",
+            "content_type": "text/plain"
+        },
+        {
+            "name": "name2",
+            "content": "content2",
+            "content_type": "image/jpeg"
+        }
+    ]
+}
 ```
 
 ### `DELETE`
-```
-{"url" : "http://httpbin.org", "path" : "/delete", "method" : "DELETE" , "body" : "[DEBUG] Delete body", "content_type" : "text/plain"}
+```json
+{
+    "url": "http://httpbin.org",
+    "path": "/delete",
+    "method": "DELETE",
+    "body": "[DEBUG] Delete body",
+    "content_type": "text/plain"
+}
 ```
 
 ### `OPTIONS`
-```
-{"url" : "http://google.com", "path" : "/anything", "method" : "OPTIONS", "headers" : {"H1" : "V1", "H1" : "V2"}}
+```json
+{
+    "url": "http://google.com",
+    "path": "/anything",
+    "method": "OPTIONS",
+    "headers": {
+        "H1": "V1",
+        "H2": "V2"
+    }
+}
 ```
     
 ### `PATCH`
-```
-{"url" : "http://httpbin.org", "path" : "/patch", "method" : "PATCH" , "body" : "[DEBUG] Delete body", "content_type" : "text/plain"}
+```json
+{
+    "url": "http://httpbin.org",
+    "path": "/patch",
+    "method": "PATCH",
+    "body": "[DEBUG] Delete body",
+    "content_type": "text/plain"
+}
 ```
