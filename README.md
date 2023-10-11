@@ -1,27 +1,6 @@
 # websockproxy
 Simple WebSocket HTTP server
-<!--
-# Table of contents
-   * [Description](#description)
-   * [Compilation](#compilation)
-   * [Configuration](#configuration)
-   * [JSON request format](#json-request-format)
-   * [Testing](#testing)
-   * [Request examples](#request-examples)
-     * [GET](#get)
-     * [HEAD](#head)
-     * [POST](#post)
-        * [With body data](#with-body-data)
-        * [With parameters](#with-parameters)
-        * [With files](#with-files)
-        * [With form data](#with-form-data)
-     * [PUT](#put)
-        * [With body data](#with-body-data-1)
-        * [With form data](#with-form-data-1)
-     * [DELETE](#delete)
-     * [OPTIONS](#options)
-     * [PATCH](#patch)
--->
+
 ## Description
 This application starts WebSocket server and processes client requests in a "proxy" manner. Client sends json-formatted request, and this server performs HTTP request as described in json. As soon as request executed result is returned to the client.
 
@@ -47,28 +26,55 @@ There's not so much to configure:
 
 ## JSON request format
 Json object has required and optional fields:
-- url - _required_ - URL, without trailing slash
-- path - path, for example, `/get`. Default value = `/`. Also takes parameters, like `/get?name=value`
-- method - _required_ - HTTP method, one of the following:
-  - GET
-  - HEAD
-  - POST
-  - PUT
-  - DELETE
-  - OPTIONS
-  - PATCH
-- headers - object with key-value pairs of headers
-- body - request body (where applicable)
-- content_type - body content type
-- form_data - array of object with multiform data (where applicable):
-  - name
-  - content
-  - filename
-  - content_type
+- `url` - _required_ - URL, without trailing slash
+- `path` - path, for example, `/get`. Default value = `/`. Also takes parameters, like `/get?name=value`
+- `method` - _required_ - HTTP method, one of the following:
+  - `GET`
+  - `HEAD`
+  - `POST`
+  - `PUT`
+  - `DELETE`
+  - `OPTIONS`
+  - `PATCH`
+- `headers` - object with key-value pairs of headers
+- `body` - request body (where applicable)
+- `content_type` - body content type
+- `form_data` - array of object with multiform data (where applicable):
+  - `name`
+  - `content`
+  - `filename`
+  - `content_type`
 
 Extra fields, if not needed (e. g.  `body` for `HEAD` request) are omitted.
 
-Note that some requests have required data. For example, PUT request cannot be performed without eiter `body` or `form_data` parameters supplied.
+Note that some requests have required data. For example, `PUT` request cannot be performed without eiter `body` or `form_data` parameters supplied.
+
+## Response format
+Response is a JSON object, with 2 values:
+- `body` - response body, if any
+- `status` - status code (200, 404 etc.) Communication errors are also reported here as a `httplib::Error` enum:
+```cpp
+enum class Error {
+  Success = 0,
+  Unknown,
+  Connection,
+  BindIPAddress,
+  Read,
+  Write,
+  ExceedRedirectCount,
+  Canceled,
+  SSLConnection,
+  SSLLoadingCerts,
+  SSLServerVerification,
+  UnsupportedMultipartBoundaryChars,
+  Compression,
+  ConnectionTimeout,
+  ProxyConnection,
+
+  // For internal use only
+  SSLPeerCouldBeClosed_,
+};
+```
 
 ## Testing
 Testing can be performed using [websocat](https://github.com/vi/websocat) client and [http://httpbin.org](http://httpbin.org) website:
