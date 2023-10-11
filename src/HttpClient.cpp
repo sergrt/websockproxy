@@ -2,7 +2,7 @@
 
 namespace {
 
-std::pair<int, std::string> FormatResult(const httplib::Result& result) {
+Response FormatResult(const httplib::Result& result) {
     if (result.error() != httplib::Error::Success)
         return {static_cast<int>(result.error()), "Failed"};
 
@@ -15,17 +15,17 @@ HttpClient::HttpClient(const std::string& url)
     : client_(url) {
 }
 
-std::pair<int, std::string> HttpClient::Visit(const GetRequest& request) {
+Response HttpClient::Visit(const GetRequest& request) {
     const auto res = client_.Get(request.Path(), request.Headers());
     return FormatResult(res);
 }
 
-std::pair<int, std::string> HttpClient::Visit(const HeadRequest& request) {
+Response HttpClient::Visit(const HeadRequest& request) {
     const auto res = client_.Head(request.Path(), request.Headers());
     return FormatResult(res);
 }
 
-std::pair<int, std::string> HttpClient::Visit(const PostRequest& request) {
+Response HttpClient::Visit(const PostRequest& request) {
     httplib::Result res;
     if (request.HasFormData())
         res = client_.Post(request.Path(), request.Headers(), request.FormData());
@@ -36,7 +36,7 @@ std::pair<int, std::string> HttpClient::Visit(const PostRequest& request) {
     return FormatResult(res);
 }
 
-std::pair<int, std::string> HttpClient::Visit(const PutRequest& request) {
+Response HttpClient::Visit(const PutRequest& request) {
     httplib::Result res;
     if (request.HasFormData())
         res = client_.Put(request.Path(), request.Headers(), request.FormData());
@@ -47,17 +47,17 @@ std::pair<int, std::string> HttpClient::Visit(const PutRequest& request) {
     return FormatResult(res);
 }
 
-std::pair<int, std::string> HttpClient::Visit(const DeleteRequest& request) {
+Response HttpClient::Visit(const DeleteRequest& request) {
     const auto res = client_.Delete(request.Path(), request.Headers(), request.Body(), request.ContentType());
     return FormatResult(res);
 }
 
-std::pair<int, std::string> HttpClient::Visit(const OptionsRequest& request) {
+Response HttpClient::Visit(const OptionsRequest& request) {
     const auto res = client_.Options(request.Path(), request.Headers());
     return FormatResult(res);
 }
 
-std::pair<int, std::string> HttpClient::Visit(const PatchRequest& request) {
+Response HttpClient::Visit(const PatchRequest& request) {
     const auto res = client_.Patch(request.Path(), request.Headers(), request.Body(), request.ContentType());
     return FormatResult(res);
 }

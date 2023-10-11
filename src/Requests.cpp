@@ -109,7 +109,7 @@ GetRequest::GetRequest(std::string url, std::string path, httplib::Headers heade
     : Request(std::move(url), std::move(path), std::move(headers)) {
 }
 
-std::pair<int, std::string> GetRequest::Accept(HttpClient& http_client) {
+Response GetRequest::Accept(HttpClient& http_client) {
     return http_client.Visit(*this);
 }
 
@@ -118,7 +118,7 @@ HeadRequest::HeadRequest(std::string url, std::string path, httplib::Headers hea
     : Request(std::move(url), std::move(path), std::move(headers)) {
 }
 
-std::pair<int, std::string> HeadRequest::Accept(HttpClient& http_client) {
+Response HeadRequest::Accept(HttpClient& http_client) {
     return http_client.Visit(*this);
 }
 
@@ -137,7 +137,7 @@ PostRequest::PostRequest(std::string url, std::string path, httplib::Headers hea
     , WithMultipartFormData(std::move(form_data)) {
 }
 
-std::pair<int, std::string> PostRequest::Accept(HttpClient& http_client) {
+Response PostRequest::Accept(HttpClient& http_client) {
     return http_client.Visit(*this);
 }
 
@@ -152,7 +152,7 @@ PutRequest::PutRequest(std::string url, std::string path, httplib::Headers heade
     , WithMultipartFormData(std::move(form_data)) {
 }
 
-std::pair<int, std::string> PutRequest::Accept(HttpClient& http_client) {
+Response PutRequest::Accept(HttpClient& http_client) {
     return http_client.Visit(*this);
 }
 
@@ -162,7 +162,7 @@ DeleteRequest::DeleteRequest(std::string url, std::string path, httplib::Headers
     , WithPayload(std::move(payload)) {
 }
 
-std::pair<int, std::string> DeleteRequest::Accept(HttpClient& http_client) {
+Response DeleteRequest::Accept(HttpClient& http_client) {
     return http_client.Visit(*this);
 }
 
@@ -171,7 +171,7 @@ OptionsRequest::OptionsRequest(std::string url, std::string path, httplib::Heade
     : Request(std::move(url), std::move(path), std::move(headers)) {
 }
 
-std::pair<int, std::string> OptionsRequest::Accept(HttpClient& http_client) {
+Response OptionsRequest::Accept(HttpClient& http_client) {
     return http_client.Visit(*this);
 }
 
@@ -181,6 +181,6 @@ PatchRequest::PatchRequest(std::string url, std::string path, httplib::Headers h
     , WithPayload(std::move(payload)) {
 }
 
-std::pair<int, std::string> PatchRequest::Accept(HttpClient& http_client) {
+Response PatchRequest::Accept(HttpClient& http_client) {
     return http_client.Visit(*this);
 }

@@ -11,7 +11,7 @@ constexpr size_t kMaxPayloadSizeBytes = 65535;
 
 namespace {
 
-std::string MakeResponse(int status, const std::string& body) {
+std::string MakeResponseJson(int status, const std::string& body) {
     nlohmann::json json;
     json["status"] = status;
     json["body"] = body;
@@ -74,7 +74,7 @@ void WsServer::MessageHandler(crow::websocket::connection& conn, const std::stri
         const auto request = MakeRequest(data);
         auto http_client = HttpClient(request->Url());
         const auto [status, body] = request->Accept(http_client);
-        const auto response = MakeResponse(status, body);
+        const auto response = MakeResponseJson(status, body);
         conn.send_text(response);
     } catch (std::exception& e) {
         const std::string err_msg = "MessageHandler(): payload processing failed: " + std::string(e.what());

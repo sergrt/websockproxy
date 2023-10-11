@@ -1,9 +1,9 @@
 #pragma once
 
 #include "Requests.h"
+#include "Response.h"
 
 #include <string>
-#include <utility>
 
 class HttpClient final {
 public:
@@ -15,13 +15,13 @@ public:
 
     ~HttpClient() = default;
 
-    std::pair<int, std::string> Visit(const GetRequest& request);
-    std::pair<int, std::string> Visit(const HeadRequest& request);
-    std::pair<int, std::string> Visit(const PostRequest& request);
-    std::pair<int, std::string> Visit(const PutRequest& request);
-    std::pair<int, std::string> Visit(const DeleteRequest& request);
-    std::pair<int, std::string> Visit(const OptionsRequest& request);
-    std::pair<int, std::string> Visit(const PatchRequest& request);
+    Response Visit(const GetRequest& request);
+    Response Visit(const HeadRequest& request);
+    Response Visit(const PostRequest& request);
+    Response Visit(const PutRequest& request);
+    Response Visit(const DeleteRequest& request);
+    Response Visit(const OptionsRequest& request);
+    Response Visit(const PatchRequest& request);
 
 private:
     httplib::Client client_;

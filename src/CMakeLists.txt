@@ -21,6 +21,7 @@ set(SOURCE
 set(HEADER
     HttpClient.h
     Requests.h
+    Response.h
     Method.h
     WsServer.h
 )

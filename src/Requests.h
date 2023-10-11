@@ -1,5 +1,7 @@
 #pragma once
 
+#include "Response.h"
+
 #include <httplib.h>
 
 #include <memory>
@@ -18,7 +20,7 @@ public:
 
     virtual ~Request() = default;
 
-    virtual std::pair<int, std::string> Accept(HttpClient& http_client) = 0;
+    virtual Response Accept(HttpClient& http_client) = 0;
 
     std::string Url() const;
     std::string Path() const;
@@ -79,13 +81,13 @@ protected:
 class GetRequest final : public Request {
 public:
     GetRequest(std::string url, std::string path, httplib::Headers headers);
-    std::pair<int, std::string> Accept(HttpClient& http_client) override;
+    Response Accept(HttpClient& http_client) override;
 };
 
 class HeadRequest final : public Request {
 public:
     HeadRequest(std::string url, std::string path, httplib::Headers headers);
-    std::pair<int, std::string> Accept(HttpClient& http_client) override;
+    Response Accept(HttpClient& http_client) override;
 };
 
 class PostRequest final : public Request, public WithPayload, public WithMultipartFormData {
@@ -93,30 +95,30 @@ public:
     PostRequest(std::string url, std::string path, httplib::Headers headers);
     PostRequest(std::string url, std::string path, httplib::Headers headers, Payload payload);
     PostRequest(std::string url, std::string path, httplib::Headers headers, httplib::MultipartFormDataItems form_data);
-    std::pair<int, std::string> Accept(HttpClient& http_client) override;
+    Response Accept(HttpClient& http_client) override;
 };
 
 class PutRequest final : public Request, public WithPayload, public WithMultipartFormData {
 public:
     PutRequest(std::string url, std::string path, httplib::Headers headers, Payload payload);
     PutRequest(std::string url, std::string path, httplib::Headers headers, httplib::MultipartFormDataItems form_data);
-    std::pair<int, std::string> Accept(HttpClient& http_client) override;
+    Response Accept(HttpClient& http_client) override;
 };
 
 class DeleteRequest final : public Request, public WithPayload {
 public:
     DeleteRequest(std::string url, std::string path, httplib::Headers headers, std::optional<Payload> payload);
-    std::pair<int, std::string> Accept(HttpClient& http_client) override;
+    Response Accept(HttpClient& http_client) override;
 };
 
 class OptionsRequest final : public Request {
 public:
     OptionsRequest(std::string url, std::string path, httplib::Headers headers);
-    std::pair<int, std::string> Accept(HttpClient& http_client) override;
+    Response Accept(HttpClient& http_client) override;
 };
 
 class PatchRequest final : public Request, public WithPayload {
 public:
     PatchRequest(std::string url, std::string path, httplib::Headers headers, std::optional<Payload> payload);
-    std::pair<int, std::string> Accept(HttpClient& http_client) override;
+    Response Accept(HttpClient& http_client) override;
 };
