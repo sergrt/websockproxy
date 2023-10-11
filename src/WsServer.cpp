@@ -36,23 +36,12 @@ WsServer::WsServer(const std::string& address, uint16_t port) {
 
 WsServer::~WsServer() {
     try {
-        Stop();
+        if (run_future_.valid()) {
+            app_.stop();
+            run_future_.wait();
+        }
     } catch (std::exception& e) {
         CROW_LOG_INFO << "~WsServer(): exception: " << e.what();
-    }
-}
-
-void WsServer::Stop() {
-    if (!run_future_.valid()) {
-        CROW_LOG_INFO << "Stop(): server is not running";
-        return;
-    }
-
-    try {
-        app_.stop();
-        run_future_.wait();
-    } catch (std::exception& e) {
-        CROW_LOG_INFO << "Stop(): exception: " << e.what();
     }
 }
 

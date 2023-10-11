@@ -16,8 +16,6 @@ public:
 
     ~WsServer();
 
-    void Stop();
-
 private:
     bool AcceptHandler(const crow::request& req, void** userdata);
     void OpenHandler(crow::websocket::connection& conn);
