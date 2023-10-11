@@ -7,45 +7,27 @@
 
 #include <stdexcept>
 
-Request::Request(std::string url, std::string path, httplib::Headers headers)
-    : url_(std::move(url))
-    , path_(std::move(path))
-    , headers_(std::move(headers)) {
-}
+namespace {
 
-httplib::Headers Request::Headers() const {
-    return headers_;
-}
-
-std::string Request::Path() const {
-    return path_.empty() ? "/" : path_;
-}
-
-std::string Request::Url() const {
-    return url_;
-}
-
-std::unique_ptr<Request> MakeRequest(const std::string& data) {
-    const auto json = nlohmann::json::parse(data);
-    if (!json.contains("url"))
-        throw std::runtime_error("MakeRequest(): invalid json - no URL specified");
-
-    const auto url = json["url"].get<std::string>();
-    const auto path = json.value("path", "/");
-    const auto method = MethodFromString(json.at("method"));
-
+httplib::Headers ExtractHeaders(const nlohmann::json& json) {
     httplib::Headers headers;
     if (json.contains("headers")) {
         for (const auto& [key, value] : json["headers"].items()) {
             headers.emplace(key, value);
         }
     }
+    return headers;
+}
 
+std::optional<Payload> ExtractPayload(const nlohmann::json& json) {
     std::optional<Payload> payload;
     if (json.contains("body") && json.contains("content_type")) {
         payload = {json["body"].get<std::string>(), json["content_type"].get<std::string>()};
     }
+    return payload;
+}
 
+std::optional<httplib::MultipartFormDataItems> ExtractFormData(const nlohmann::json& json) {
     std::optional<httplib::MultipartFormDataItems> form_data;
     if (json.contains("form_data")) {
         form_data = httplib::MultipartFormDataItems{};
@@ -58,6 +40,19 @@ std::unique_ptr<Request> MakeRequest(const std::string& data) {
             form_data->push_back(std::move(item));
         }
     }
+    return form_data;
+}
+
+}  // namespace
+
+std::unique_ptr<Request> MakeRequest(const std::string& data) {
+    const auto json = nlohmann::json::parse(data);
+    const auto url = json.at("url").get<std::string>();
+    const auto path = json.value("path", "/");
+    const auto method = MethodFromString(json.at("method"));
+    const auto headers = ExtractHeaders(json);
+    const auto payload  =ExtractPayload(json);
+    const auto form_data = ExtractFormData(json);
 
     if (method == Method::METHOD_GET) {
         return std::make_unique<GetRequest>(url, path, headers);
@@ -88,6 +83,25 @@ std::unique_ptr<Request> MakeRequest(const std::string& data) {
     }
 
     return nullptr;
+}
+
+
+Request::Request(std::string url, std::string path, httplib::Headers headers)
+    : url_(std::move(url))
+    , path_(std::move(path))
+    , headers_(std::move(headers)) {
+}
+
+httplib::Headers Request::Headers() const {
+    return headers_;
+}
+
+std::string Request::Path() const {
+    return path_.empty() ? "/" : path_;
+}
+
+std::string Request::Url() const {
+    return url_;
 }
 
 
