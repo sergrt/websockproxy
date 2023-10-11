@@ -3,8 +3,6 @@
 #include "Requests.h"
 #include "Response.h"
 
-#include <string>
-
 class HttpClient final {
 public:
     explicit HttpClient(const std::string& url);
