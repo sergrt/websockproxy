@@ -1,5 +1,5 @@
 # websockproxy
-Simple WebSocket HTTP server
+Simple WebSocket HTTP proxy server
 
 ## Description
 This application starts WebSocket server and processes client requests in a "proxy" manner. Client sends json-formatted request, and this server performs HTTP request as described in json. As soon as request executed result is returned to the client.
