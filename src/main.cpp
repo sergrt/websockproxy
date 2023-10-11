@@ -13,12 +13,16 @@ int main(int argc, char* argv[]) {
     while (true) {
         std::string command;
         std::cin >> command;
-        if (command == "q") {
+        if (command == "q" || command == "quit") {
             std::cout << "Exiting..." << std::endl;
-            server.Stop();
             break;
         } else {
-            std::cout << "Invalid command. Enter \"q\" to quit" << std::endl;
+            if (std::cin.fail() || std::cin.eof()) {
+                std::cout << "Input error, exiting..." << std::endl;
+                break;
+            } else {
+                std::cout << "Invalid command. Enter \"q\" to quit" << std::endl;
+            }
         }
     }
     return 0;
