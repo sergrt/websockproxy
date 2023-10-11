@@ -24,8 +24,8 @@ There's not so much to configure:
 - Set `kMaxCapacity` to specify max clients allowed (default is `16`)
 - Set `kMaxPayloadSizeBytes` t ospecify max payload for WebSocket server (default is `65536` bytes)
 
-## JSON request format
-Json object has required and optional fields:
+## Request format
+Request is a Json object that has required and optional fields:
 - `url` - _required_ - URL, without trailing slash
 - `path` - path, for example, `/get`. Default value = `/`. Also takes parameters, like `/get?name=value`
 - `method` - _required_ - HTTP method, one of the following:
